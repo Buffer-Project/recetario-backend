@@ -1,6 +1,7 @@
 package com.buffer.recetariobackend.service;
 
 import com.buffer.recetariobackend.dto.RecetaDTO;
+import com.buffer.recetariobackend.entity.Calificacion;
 import com.buffer.recetariobackend.entity.Receta;
 import com.buffer.recetariobackend.repository.IRecetaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +11,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class RecetasService implements IRecetasService{
+public class RecetasService implements IRecetasService {
 
     @Autowired
     private IRecetaRepository recetaRepository;
+
     @Override
     public List<Receta> getRecetas() {
         return recetaRepository.findAll();
@@ -39,5 +41,6 @@ public class RecetasService implements IRecetasService{
         recetaRepository.save(receta);
     }
 
+    
 
 }

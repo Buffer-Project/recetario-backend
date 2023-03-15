@@ -91,4 +91,9 @@ public class Receta {
     public void setCalificaciones(List<Calificacion> calificaciones) {
         this.calificaciones = calificaciones;
     }
+
+    public void updateReceta(Receta receta) {
+    }
+
+    
 }
