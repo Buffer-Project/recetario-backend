@@ -26,6 +26,11 @@ public class CalificacionController {
     return null;
   }
         
+  @DeleteMapping ("/{id}")
+  public ResponseEntity<Receta> deleteCalificacionByIdCalificacion(String idReceta, @RequestBody String idCalificacion){
+    Receta recetaFinal = calificacionService.deleteCalificacionByIdCalificacion(idReceta, idCalificacion);  
+    return ResponseEntity.ok(recetaFinal);
+  }
       
     
 
