@@ -92,8 +92,5 @@ public class Receta {
         this.calificaciones = calificaciones;
     }
 
-    public void updateReceta(Receta receta) {
-    }
-
     
 }
