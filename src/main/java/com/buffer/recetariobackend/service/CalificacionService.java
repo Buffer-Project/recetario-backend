@@ -3,22 +3,13 @@ package com.buffer.recetariobackend.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-
 import com.buffer.recetariobackend.entity.Calificacion;
 import com.buffer.recetariobackend.entity.Receta;
-import com.buffer.recetariobackend.repository.IRecetaRepository;
-import com.mongodb.internal.operation.CreateCollectionOperation;
 
 @Service
 public class CalificacionService implements ICalificacionService {
-
-    @Autowired
-    private IRecetaRepository recetaRepository;
 
     @Autowired
     private IRecetasService recetasService;

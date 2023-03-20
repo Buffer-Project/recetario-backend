@@ -18,7 +18,7 @@ public class RecetaController {
     @Autowired
     private IRecetasService recetasService;
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<List<Receta>> getRecetas(){
         List<Receta> recetas = recetasService.getRecetas();
         return ResponseEntity.ok(recetas);

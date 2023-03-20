@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import com.buffer.recetariobackend.entity.Calificacion;
 import com.buffer.recetariobackend.entity.Receta;
 
-@Service
 public interface ICalificacionService {
 
     public Receta calificar(String id, Calificacion calificacion);

@@ -22,16 +22,7 @@ public class CalificacionController {
 
   @Autowired
     private ICalificacionService calificacionService;
- 
-  @PostMapping("/{id}")
-  public ResponseEntity<Calificacion> calificar(@PathVariable String id, @RequestBody Calificacion Calificacion ){
-    return null;
-  }
-
-  
-  
-
-        
+   
   @DeleteMapping ("/{id}")
   public ResponseEntity<Receta> deleteCalificacionByIdCalificacion(String idReceta, @RequestBody String idCalificacion){
     Receta recetaFinal = calificacionService.deleteCalificacionByIdCalificacion(idReceta, idCalificacion);  
