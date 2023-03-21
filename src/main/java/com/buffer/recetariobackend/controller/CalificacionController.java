@@ -3,7 +3,6 @@ package com.buffer.recetariobackend.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,8 +24,8 @@ public class CalificacionController {
 
  
   @PostMapping("/{id}")
-  public ResponseEntity<Receta> calificar(@PathVariable String id, @RequestBody Calificacion Calificacion ){
-     Receta recetaConCalificacionNueva = calificacionService.calificar(id, Calificacion);
+  public ResponseEntity<Receta> calificar(@PathVariable String id, @RequestBody Calificacion calificacion ){
+     Receta recetaConCalificacionNueva = calificacionService.calificar(id, calificacion);
 
      if(recetaConCalificacionNueva == null){
       return ResponseEntity.notFound().build();

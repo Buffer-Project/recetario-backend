@@ -6,6 +6,8 @@ public class Calificacion {
 
     private int puntuacion;
 
+    public Calificacion(){}
+
     public Calificacion(String comentario, int puntuacion) {
         this.comentario = comentario;
         this.puntuacion = puntuacion;
