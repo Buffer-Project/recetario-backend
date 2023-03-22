@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+
 import com.buffer.recetariobackend.entity.Calificacion;
 import com.buffer.recetariobackend.entity.Receta;
 
@@ -28,7 +30,7 @@ public class CalificacionService implements ICalificacionService {
 
     @Override
     public Receta deleteCalificacionByIdCalificacion(String idReceta, String idCalificacion) {
-        
+
         Optional<Receta> receta = recetasService.getRecetaById(idReceta);
         Receta recetaFinal = receta.get();
         List<Calificacion> calificaciones = recetaFinal.getCalificaciones();
@@ -46,5 +48,20 @@ public class CalificacionService implements ICalificacionService {
 
     }
 
-    
+    @Override
+    public Receta modificarCalificacion(String idReceta, Calificacion calificacion) {
+        Optional<Receta> recetaDraft = recetasService.getRecetaById(idReceta);
+        Receta receta = recetaDraft.get();
+        List<Calificacion> calificaciones = receta.getCalificaciones();
+        for (Calificacion califAEditar : calificaciones) {
+            if (califAEditar.getIdCalificacion() == calificacion.getIdCalificacion()) {
+                califAEditar.setComentario(calificacion.getComentario());
+                califAEditar.setPuntuacion(calificacion.getPuntuacion());
+
+            }
+        }
+
+        return receta;
+    }
+
 }
