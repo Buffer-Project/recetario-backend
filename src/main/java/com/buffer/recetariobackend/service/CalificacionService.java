@@ -28,8 +28,10 @@ public class CalificacionService implements ICalificacionService {
 
     @Override
     public Receta deleteCalificacionByIdCalificacion(String idReceta, String idCalificacion) {
-        
         Optional<Receta> receta = recetasService.getRecetaById(idReceta);
+        if(receta.isEmpty()){
+         throw new NullPointerException();
+        }
         Receta recetaFinal = receta.get();
         List<Calificacion> calificaciones = recetaFinal.getCalificaciones();
         List<Calificacion> listaFinal = new ArrayList<>();

@@ -1,7 +1,6 @@
 package com.buffer.recetariobackend.service;
 
 import com.buffer.recetariobackend.dto.RecetaDTO;
-import com.buffer.recetariobackend.entity.Calificacion;
 import com.buffer.recetariobackend.entity.Receta;
 import com.buffer.recetariobackend.repository.IRecetaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
