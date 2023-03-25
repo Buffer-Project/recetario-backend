@@ -20,25 +20,18 @@ import com.buffer.recetariobackend.service.ICalificacionService;
 public class CalificacionController {
 
   @Autowired
-    private ICalificacionService calificacionService;
+  private ICalificacionService calificacionService;
 
- 
   @PostMapping("/{id}")
-  public ResponseEntity<Receta> calificar(@PathVariable String id, @RequestBody Calificacion calificacion ){
-     Receta recetaConCalificacionNueva = calificacionService.calificar(id, calificacion);
+  public ResponseEntity<Receta> calificar(@PathVariable String id, @RequestBody Calificacion calificacion) {
+    Receta recetaConCalificacionNueva = null;
+    try {
+      recetaConCalificacionNueva = calificacionService.calificar(id, calificacion);
+    } catch (NullPointerException e) {
+      ResponseEntity.notFound().build();
+    }
 
-     if(recetaConCalificacionNueva == null){
-      return ResponseEntity.notFound().build();
-     }
-
-      return ResponseEntity.ok(recetaConCalificacionNueva);
+    return ResponseEntity.ok(recetaConCalificacionNueva);
   }
-
-  
-
-        
-      
-    
-
 
 }

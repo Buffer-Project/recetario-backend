@@ -18,6 +18,9 @@ public class CalificacionService implements ICalificacionService {
     public Receta calificar(String id, Calificacion calificacion) {
 
         Optional<Receta> recetaConCalificaciones = recetasService.getRecetaById(id);
+        if(recetaConCalificaciones.isEmpty()){
+            throw new NullPointerException();
+           }
         Receta receta = recetaConCalificaciones.get();
         List<Calificacion> calificaciones = receta.getCalificaciones();
 
