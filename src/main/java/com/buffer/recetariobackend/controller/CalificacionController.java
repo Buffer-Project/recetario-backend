@@ -22,16 +22,16 @@ public class CalificacionController {
 
   @Autowired
     private ICalificacionService calificacionService;
-   
-  @DeleteMapping ("/{id}")
-  public ResponseEntity<Receta> deleteCalificacion(@PathVariable String idReceta, @RequestBody String idCalificacion){
-    Receta recetaFinal = calificacionService.deleteCalificacionByIdCalificacion(idReceta, idCalificacion);  
-    return ResponseEntity.ok(recetaFinal);
-  }
 
   @PatchMapping("/{id}")
   public ResponseEntity<Receta> modificarCalificacion(@PathVariable String idReceta,@RequestBody Calificacion calificacion){
-    Receta recetaFinal = calificacionService.modificarCalificacion(idReceta, calificacion);
+    
+    Receta recetaFinal = null;
+    try {
+      recetaFinal = calificacionService.modificarCalificacion(idReceta, calificacion);
+    } catch (NullPointerException e) {
+     ResponseEntity.notFound().build();
+    }
     return ResponseEntity.ok(recetaFinal);
   }
       

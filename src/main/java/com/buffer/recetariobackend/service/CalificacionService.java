@@ -51,6 +51,9 @@ public class CalificacionService implements ICalificacionService {
     @Override
     public Receta modificarCalificacion(String idReceta, Calificacion calificacion) {
         Optional<Receta> recetaDraft = recetasService.getRecetaById(idReceta);
+        if(recetaDraft.isEmpty()){
+            throw new NullPointerException();
+           }
         Receta receta = recetaDraft.get();
         List<Calificacion> calificaciones = receta.getCalificaciones();
         for (Calificacion califAEditar : calificaciones) {
