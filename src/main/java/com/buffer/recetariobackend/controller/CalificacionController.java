@@ -30,7 +30,7 @@ public class CalificacionController {
     try {
       recetaFinal = calificacionService.modificarCalificacion(idReceta, calificacion);
     } catch (NullPointerException e) {
-     ResponseEntity.notFound().build();
+      return ResponseEntity.notFound().build();
     }
     return ResponseEntity.ok(recetaFinal);
   }

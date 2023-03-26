@@ -56,6 +56,7 @@ public class CalificacionService implements ICalificacionService {
            }
         Receta receta = recetaDraft.get();
         List<Calificacion> calificaciones = receta.getCalificaciones();
+        // evaluar la posibilidad de hacerlo con un while en vez del for
         for (Calificacion califAEditar : calificaciones) {
             if (califAEditar.getIdCalificacion() == calificacion.getIdCalificacion()) {
                 califAEditar.setComentario(calificacion.getComentario());
