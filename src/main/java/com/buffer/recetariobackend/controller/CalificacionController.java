@@ -27,7 +27,7 @@ public class CalificacionController {
     try {
       recetaFinal = calificacionService.deleteCalificacionByIdCalificacion(idReceta, idCalificacion);
     } catch (NullPointerException e) {
-      ResponseEntity.notFound().build();
+      return ResponseEntity.notFound().build();
     }
 
     return ResponseEntity.ok(recetaFinal);
