@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.buffer.recetariobackend.entity.Calificacion;
 import com.buffer.recetariobackend.entity.Receta;
+import com.buffer.recetariobackend.exception.RecetaNotFoundException;
 
 @Service
 public class CalificacionService implements ICalificacionService {
@@ -19,7 +20,7 @@ public class CalificacionService implements ICalificacionService {
 
         Optional<Receta> recetaConCalificaciones = recetasService.getRecetaById(id);
         if(recetaConCalificaciones.isEmpty()){
-            throw new NullPointerException();
+            throw new RecetaNotFoundException(id);
            }
         Receta receta = recetaConCalificaciones.get();
         List<Calificacion> calificaciones = receta.getCalificaciones();

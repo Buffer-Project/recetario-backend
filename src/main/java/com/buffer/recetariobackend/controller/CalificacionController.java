@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.buffer.recetariobackend.entity.Calificacion;
 import com.buffer.recetariobackend.entity.Receta;
+import com.buffer.recetariobackend.exception.RecetaException;
 import com.buffer.recetariobackend.service.ICalificacionService;
 
 @CrossOrigin()
@@ -27,7 +28,7 @@ public class CalificacionController {
     Receta recetaConCalificacionNueva = null;
     try {
       recetaConCalificacionNueva = calificacionService.calificar(id, calificacion);
-    } catch (NullPointerException e) {
+    } catch (RecetaException e) {
        return ResponseEntity.notFound().build();
     }
 
