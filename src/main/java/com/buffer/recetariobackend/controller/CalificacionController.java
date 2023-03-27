@@ -28,7 +28,7 @@ public class CalificacionController {
     try {
       recetaConCalificacionNueva = calificacionService.calificar(id, calificacion);
     } catch (NullPointerException e) {
-      ResponseEntity.notFound().build();
+       return ResponseEntity.notFound().build();
     }
 
     return ResponseEntity.ok(recetaConCalificacionNueva);
