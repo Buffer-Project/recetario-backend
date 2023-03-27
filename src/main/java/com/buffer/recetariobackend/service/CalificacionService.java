@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.buffer.recetariobackend.entity.Calificacion;
 import com.buffer.recetariobackend.entity.Receta;
+import com.buffer.recetariobackend.exception.RecetaNotFoundException;
 
 @Service
 public class CalificacionService implements ICalificacionService {
@@ -52,7 +53,7 @@ public class CalificacionService implements ICalificacionService {
     public Receta modificarCalificacion(String idReceta, Calificacion calificacion) {
         Optional<Receta> recetaDraft = recetasService.getRecetaById(idReceta);
         if(recetaDraft.isEmpty()){
-            throw new NullPointerException();
+            throw new RecetaNotFoundException(idReceta);
            }
         Receta receta = recetaDraft.get();
         List<Calificacion> calificaciones = receta.getCalificaciones();
