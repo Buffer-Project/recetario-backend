@@ -10,6 +10,8 @@ public class Calificacion {
     @Id
     private String idCalificacion;
 
+    public Calificacion(){}
+
     public Calificacion(String comentario, int puntuacion, String idCalificacion) {
         this.comentario = comentario;
         this.puntuacion = puntuacion;
