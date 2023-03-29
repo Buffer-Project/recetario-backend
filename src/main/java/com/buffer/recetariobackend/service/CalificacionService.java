@@ -59,5 +59,29 @@ public class CalificacionService implements ICalificacionService {
 
         return receta;
     }
+    
+        @Override
+    public Receta deleteCalificacionByIdCalificacion(String idReceta, String idCalificacion) {
+        Optional<Receta> receta = recetasService.getRecetaById(idReceta);
+        if(receta.isEmpty()){
+         throw new NullPointerException();
+        }
+        Receta recetaFinal = receta.get();
+        List<Calificacion> calificaciones = recetaFinal.getCalificaciones();
+        List<Calificacion> listaFinal = new ArrayList<>();
+
+        for (Calificacion calif : calificaciones) {
+            if (calif.getIdCalificacion() != idCalificacion) {
+                listaFinal.add(calif);
+            }
+        }
+
+        recetaFinal.setCalificaciones(listaFinal);
+        recetasService.updateReceta(recetaFinal);
+        return recetaFinal;
+
+    }
+
+    
 
 }
