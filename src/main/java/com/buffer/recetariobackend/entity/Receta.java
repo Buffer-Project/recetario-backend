@@ -19,17 +19,21 @@ public class Receta {
 
     private String dificultad;
 
-    public Receta(String id, String titulo, String foto, List<String> preparacion, List<Ingrediente> ingredientes, String dificultad) {
+    private List<Calificacion> calificaciones;
+
+    public Receta(String id, String titulo, String foto, List<String> preparacion, List<Ingrediente> ingredientes,
+            String dificultad, List<Calificacion> calificaciones) {
         this.id = id;
         this.titulo = titulo;
         this.foto = foto;
         this.preparacion = preparacion;
         this.ingredientes = ingredientes;
         this.dificultad = dificultad;
+        this.calificaciones = calificaciones;
     }
 
-    public RecetaDTO toRecetaDTO(){
-        return new RecetaDTO(this.titulo, this.foto, this.preparacion, this.ingredientes, this.dificultad);
+    public RecetaDTO toRecetaDTO() {
+        return new RecetaDTO(this.titulo, this.foto, this.preparacion, this.ingredientes, this.dificultad, this.calificaciones);
     }
 
     public String getId() {
@@ -79,4 +83,16 @@ public class Receta {
     public void setDificultad(String dificultad) {
         this.dificultad = dificultad;
     }
+
+    public List<Calificacion> getCalificaciones() {
+        return calificaciones;
+    }
+
+    public void setCalificaciones(List<Calificacion> calificaciones) {
+        this.calificaciones = calificaciones;
+    }
+
+   
+
+    
 }

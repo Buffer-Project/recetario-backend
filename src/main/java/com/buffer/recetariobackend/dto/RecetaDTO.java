@@ -1,5 +1,6 @@
 package com.buffer.recetariobackend.dto;
 
+import com.buffer.recetariobackend.entity.Calificacion;
 import com.buffer.recetariobackend.entity.Ingrediente;
 import com.buffer.recetariobackend.entity.Receta;
 
@@ -14,16 +15,19 @@ public class RecetaDTO {
 
     private String dificultad;
 
-    public RecetaDTO(String titulo, String foto, List<String> preparacion, List<Ingrediente> ingredientes, String dificultad) {
+    private List<Calificacion> calificaciones;
+
+    public RecetaDTO(String titulo, String foto, List<String> preparacion, List<Ingrediente> ingredientes, String dificultad,List<Calificacion> calificaciones) {
         this.titulo = titulo;
         this.foto = foto;
         this.preparacion = preparacion;
         this.ingredientes = ingredientes;
         this.dificultad = dificultad;
+        this.calificaciones = calificaciones;
     }
 
     public Receta toReceta(){
-        return new Receta(null, this.titulo, this.foto, this.preparacion, this.ingredientes, this.dificultad);
+        return new Receta(null, this.titulo, this.foto, this.preparacion, this.ingredientes, this.dificultad, this.calificaciones);
     }
 
     public String getTitulo() {
