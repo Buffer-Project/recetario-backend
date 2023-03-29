@@ -21,8 +21,11 @@ public class Receta {
 
     private List<Calificacion> calificaciones;
 
+    public Receta() {
+    }
+
     public Receta(String id, String titulo, String foto, List<String> preparacion, List<Ingrediente> ingredientes,
-            String dificultad, List<Calificacion> calificaciones) {
+                  String dificultad, List<Calificacion> calificaciones) {
         this.id = id;
         this.titulo = titulo;
         this.foto = foto;

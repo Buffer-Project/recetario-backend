@@ -4,6 +4,9 @@ public class Ingrediente {
     private String ingrediente;
     private String cantidad;
 
+    public Ingrediente() {
+    }
+
     public Ingrediente(String ingrediente, String cantidad) {
         this.ingrediente = ingrediente;
         this.cantidad = cantidad;

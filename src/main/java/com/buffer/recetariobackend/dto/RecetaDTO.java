@@ -17,7 +17,10 @@ public class RecetaDTO {
 
     private List<Calificacion> calificaciones;
 
-    public RecetaDTO(String titulo, String foto, List<String> preparacion, List<Ingrediente> ingredientes, String dificultad,List<Calificacion> calificaciones) {
+    public RecetaDTO() {
+    }
+
+    public RecetaDTO(String titulo, String foto, List<String> preparacion, List<Ingrediente> ingredientes, String dificultad, List<Calificacion> calificaciones) {
         this.titulo = titulo;
         this.foto = foto;
         this.preparacion = preparacion;
