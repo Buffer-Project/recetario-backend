@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.buffer.recetariobackend.entity.Calificacion;
 import com.buffer.recetariobackend.entity.Receta;
 import com.buffer.recetariobackend.exception.RecetaNotFoundException;
+import com.buffer.recetariobackend.exception.RecetaException;
 import com.buffer.recetariobackend.service.ICalificacionService;
 
 @CrossOrigin()
@@ -21,7 +22,7 @@ import com.buffer.recetariobackend.service.ICalificacionService;
 public class CalificacionController {
 
   @Autowired
-    private ICalificacionService calificacionService;
+  private ICalificacionService calificacionService;
 
   @PatchMapping("/{id}")
   public ResponseEntity<Receta> modificarCalificacion(@PathVariable String id,@RequestBody Calificacion calificacion){
@@ -34,8 +35,19 @@ public class CalificacionController {
     }
     return ResponseEntity.ok(recetaFinal);
   }
+
+  @PostMapping("/{id}")
+  public ResponseEntity<Receta> calificar(@PathVariable String id, @RequestBody Calificacion calificacion) {
+    Receta recetaConCalificacionNueva = null;
+    try {
+      recetaConCalificacionNueva = calificacionService.calificar(id, calificacion);
+    } catch (RecetaException e) {
+       return ResponseEntity.notFound().build();
+    }
+
+    return ResponseEntity.ok(recetaConCalificacionNueva);
+  }
       
     
-
 
 }

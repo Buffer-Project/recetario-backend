@@ -92,7 +92,5 @@ public class Receta {
         this.calificaciones = calificaciones;
     }
 
-   
-
     
 }
