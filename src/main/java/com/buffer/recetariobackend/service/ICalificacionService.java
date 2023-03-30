@@ -7,7 +7,7 @@ public interface ICalificacionService {
 
     public Receta modificarCalificacion(String idReceta, Calificacion calificacion);
 
-    Receta deleteCalificacionByIdCalificacion(String idReceta, String idCalificacion);
+    Receta deleteCalificacionByAutor(String idReceta, String autor);
 
     Receta calificar(String id, Calificacion calificacion);
 }

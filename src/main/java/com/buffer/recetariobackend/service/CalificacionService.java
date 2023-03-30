@@ -49,7 +49,7 @@ public class CalificacionService implements ICalificacionService {
         List<Calificacion> calificaciones = receta.getCalificaciones();
         // evaluar la posibilidad de hacerlo con un while en vez del for
         for (Calificacion califAEditar : calificaciones) {
-            if (califAEditar.getIdCalificacion() == calificacion.getIdCalificacion()) {
+            if (califAEditar.getAutor() == calificacion.getAutor()) {
                 califAEditar.setComentario(calificacion.getComentario());
                 califAEditar.setPuntuacion(calificacion.getPuntuacion());
 
@@ -61,7 +61,7 @@ public class CalificacionService implements ICalificacionService {
     }
     
         @Override
-    public Receta deleteCalificacionByIdCalificacion(String idReceta, String idCalificacion) {
+    public Receta deleteCalificacionByAutor(String idReceta, String autor) {
         Optional<Receta> receta = recetasService.getRecetaById(idReceta);
         if(receta.isEmpty()){
          throw new NullPointerException();
@@ -71,7 +71,7 @@ public class CalificacionService implements ICalificacionService {
         List<Calificacion> listaFinal = new ArrayList<>();
 
         for (Calificacion calif : calificaciones) {
-            if (calif.getIdCalificacion() != idCalificacion) {
+            if (calif.getAutor() != autor) {
                 listaFinal.add(calif);
             }
         }

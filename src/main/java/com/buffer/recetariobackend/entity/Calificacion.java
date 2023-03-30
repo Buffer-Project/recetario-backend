@@ -8,14 +8,14 @@ public class Calificacion {
 
     private int puntuacion;
     @Id
-    private String idCalificacion;
+    private String autor;
 
     public Calificacion(){}
 
-    public Calificacion(String comentario, int puntuacion, String idCalificacion) {
+    public Calificacion(String comentario, int puntuacion, String autor) {
         this.comentario = comentario;
         this.puntuacion = puntuacion;
-        this.idCalificacion = idCalificacion;
+        this.autor = autor;
     }
 
     public String getComentario() {
@@ -34,11 +34,11 @@ public class Calificacion {
         this.puntuacion = puntuacion;
     }
 
-    public String getIdCalificacion() {
-        return idCalificacion;
+    public String getAutor() {
+        return autor;
     }
 
-    public void setIdCalificacion(String idCalificacion) {
-        this.idCalificacion = idCalificacion;
+    public void setAutor(String autor) {
+        this.autor = autor;
     }
 }
