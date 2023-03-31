@@ -22,4 +22,9 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
     - name: Build with Gradle
+      env:  
+        DATABASE_HOST:  ${{ secrets.DATABASE_HOST }}
+        DATABASE_USER: ${{ secrets.DATABASE_USER }}
+        DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+        DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
       run: ./gradlew build
