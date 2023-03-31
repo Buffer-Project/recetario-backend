@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.buffer.recetariobackend.entity.Calificacion;
 import com.buffer.recetariobackend.entity.Receta;
+import com.buffer.recetariobackend.entity.Usuario;
+import com.buffer.recetariobackend.exception.CalificacionAlreadyExistsException;
 import com.buffer.recetariobackend.exception.RecetaNotFoundException;
 
 @Service
@@ -32,8 +34,20 @@ public class CalificacionService implements ICalificacionService {
             receta.setCalificaciones(calificacionesAgregadas);
 
         } else {
-            calificaciones.add(calificacion);
+            for (Calificacion calif : calificaciones) {
+                if (calif.getAutor().getId().equals(calificacion.getAutor().getId())) {
+                    throw new CalificacionAlreadyExistsException();
+                } else {
+                    calificaciones.add(calificacion);
+                }
+
+            }
+            
         }
+
+        
+
+        
 
         recetasService.updateReceta(receta);
         return receta;
@@ -59,9 +73,15 @@ public class CalificacionService implements ICalificacionService {
 
         return receta;
     }
+<<<<<<< Updated upstream
     
         @Override
     public Receta deleteCalificacionByAutor(String idReceta, String autor) {
+=======
+
+    @Override
+    public Receta deleteCalificacionByAutor(String idReceta, Usuario autor) {
+>>>>>>> Stashed changes
         Optional<Receta> receta = recetasService.getRecetaById(idReceta);
         if(receta.isEmpty()){
          throw new NullPointerException();

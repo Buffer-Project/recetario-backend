@@ -4,6 +4,10 @@ public class RecetaException extends RuntimeException {
 
     private int status;
 
+    public RecetaException(String message) {
+        super(message);
+    }
+
     public RecetaException(String message, int status) {
         super(message); // es igual a: new RuntimeException(message);
         this.status = status;
