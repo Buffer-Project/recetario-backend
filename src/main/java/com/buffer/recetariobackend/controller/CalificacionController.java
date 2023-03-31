@@ -38,13 +38,9 @@ public class CalificacionController {
     Receta recetaConCalificacionNueva = null;
     try {
       recetaConCalificacionNueva = calificacionService.calificar(id, calificacion);
-<<<<<<< Updated upstream
-    } catch (RecetaException e) {
-=======
     } catch (CalificacionAlreadyExistsException er) {
       return ResponseEntity.unprocessableEntity().build();
     } catch (RecetaNotFoundException e) {
->>>>>>> Stashed changes
       return ResponseEntity.notFound().build();
     }
 
@@ -52,11 +48,7 @@ public class CalificacionController {
   }
 
   @DeleteMapping("/{id}")
-<<<<<<< Updated upstream
-  public ResponseEntity<Receta> deleteCalificacionByIdCalificacion(String idReceta, String autor) {
-=======
   public ResponseEntity<Receta> deleteCalificacionByAutor(String id, Usuario autor) {
->>>>>>> Stashed changes
     Receta recetaFinal = null;
     try {
       recetaFinal = calificacionService.deleteCalificacionByAutor(id, autor);

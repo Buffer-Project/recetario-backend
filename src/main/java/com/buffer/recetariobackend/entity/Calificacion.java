@@ -5,13 +5,8 @@ public class Calificacion {
     private String comentario;
 
     private int puntuacion;
-<<<<<<< Updated upstream
-    @Id
-    private String autor;
-=======
     
     private Usuario autor;
->>>>>>> Stashed changes
 
     public Calificacion(){}
 

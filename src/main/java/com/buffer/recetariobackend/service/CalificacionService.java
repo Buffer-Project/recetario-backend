@@ -73,15 +73,9 @@ public class CalificacionService implements ICalificacionService {
 
         return receta;
     }
-<<<<<<< Updated upstream
-    
-        @Override
-    public Receta deleteCalificacionByAutor(String idReceta, String autor) {
-=======
 
     @Override
     public Receta deleteCalificacionByAutor(String idReceta, Usuario autor) {
->>>>>>> Stashed changes
         Optional<Receta> receta = recetasService.getRecetaById(idReceta);
         if(receta.isEmpty()){
          throw new NullPointerException();
