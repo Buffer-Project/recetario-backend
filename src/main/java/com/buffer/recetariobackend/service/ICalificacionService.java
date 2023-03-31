@@ -2,12 +2,13 @@ package com.buffer.recetariobackend.service;
 
 import com.buffer.recetariobackend.entity.Calificacion;
 import com.buffer.recetariobackend.entity.Receta;
+import com.buffer.recetariobackend.entity.Usuario;
 
 public interface ICalificacionService {
 
     public Receta modificarCalificacion(String idReceta, Calificacion calificacion);
 
-    Receta deleteCalificacionByIdCalificacion(String idReceta, String idCalificacion);
+    public Receta deleteCalificacionByAutor(String idReceta, Usuario autor);
 
     Receta calificar(String id, Calificacion calificacion);
 }

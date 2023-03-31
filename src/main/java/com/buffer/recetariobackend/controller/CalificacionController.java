@@ -6,8 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.buffer.recetariobackend.entity.Receta;
+import com.buffer.recetariobackend.entity.Usuario;
 import com.buffer.recetariobackend.exception.RecetaNotFoundException;
-import com.buffer.recetariobackend.exception.RecetaException;
+import com.buffer.recetariobackend.exception.CalificacionAlreadyExistsException;
 import com.buffer.recetariobackend.service.ICalificacionService;
 
 @CrossOrigin()
@@ -20,8 +21,8 @@ public class CalificacionController {
   private ICalificacionService calificacionService;
 
   @PatchMapping("/{id}")
-  public ResponseEntity<Receta> modificarCalificacion(@PathVariable String id,@RequestBody Calificacion calificacion){
-    
+  public ResponseEntity<Receta> modificarCalificacion(@PathVariable String id, @RequestBody Calificacion calificacion) {
+
     Receta recetaFinal = null;
     try {
       recetaFinal = calificacionService.modificarCalificacion(id, calificacion);
@@ -37,20 +38,20 @@ public class CalificacionController {
     Receta recetaConCalificacionNueva = null;
     try {
       recetaConCalificacionNueva = calificacionService.calificar(id, calificacion);
-    } catch (RecetaException e) {
-       return ResponseEntity.notFound().build();
+    } catch (CalificacionAlreadyExistsException er) {
+      return ResponseEntity.unprocessableEntity().build();
+    } catch (RecetaNotFoundException e) {
+      return ResponseEntity.notFound().build();
     }
 
     return ResponseEntity.ok(recetaConCalificacionNueva);
   }
-      
-    
+
   @DeleteMapping("/{id}")
-  public ResponseEntity<Receta> deleteCalificacionByIdCalificacion(String idReceta,
-      @RequestBody String idCalificacion) {
+  public ResponseEntity<Receta> deleteCalificacionByAutor(String id, Usuario autor) {
     Receta recetaFinal = null;
     try {
-      recetaFinal = calificacionService.deleteCalificacionByIdCalificacion(idReceta, idCalificacion);
+      recetaFinal = calificacionService.deleteCalificacionByAutor(id, autor);
     } catch (NullPointerException e) {
       return ResponseEntity.notFound().build();
     }

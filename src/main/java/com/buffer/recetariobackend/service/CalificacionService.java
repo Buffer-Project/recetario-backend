@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.buffer.recetariobackend.entity.Calificacion;
 import com.buffer.recetariobackend.entity.Receta;
+import com.buffer.recetariobackend.entity.Usuario;
+import com.buffer.recetariobackend.exception.CalificacionAlreadyExistsException;
 import com.buffer.recetariobackend.exception.RecetaNotFoundException;
 
 @Service
@@ -32,8 +34,20 @@ public class CalificacionService implements ICalificacionService {
             receta.setCalificaciones(calificacionesAgregadas);
 
         } else {
-            calificaciones.add(calificacion);
+            for (Calificacion calif : calificaciones) {
+                if (calif.getAutor().getId().equals(calificacion.getAutor().getId())) {
+                    throw new CalificacionAlreadyExistsException();
+                } else {
+                    calificaciones.add(calificacion);
+                }
+
+            }
+            
         }
+
+        
+
+        
 
         recetasService.updateReceta(receta);
         return receta;
@@ -49,7 +63,7 @@ public class CalificacionService implements ICalificacionService {
         List<Calificacion> calificaciones = receta.getCalificaciones();
         // evaluar la posibilidad de hacerlo con un while en vez del for
         for (Calificacion califAEditar : calificaciones) {
-            if (califAEditar.getIdCalificacion() == calificacion.getIdCalificacion()) {
+            if (califAEditar.getAutor() == calificacion.getAutor()) {
                 califAEditar.setComentario(calificacion.getComentario());
                 califAEditar.setPuntuacion(calificacion.getPuntuacion());
 
@@ -59,9 +73,9 @@ public class CalificacionService implements ICalificacionService {
 
         return receta;
     }
-    
-        @Override
-    public Receta deleteCalificacionByIdCalificacion(String idReceta, String idCalificacion) {
+
+    @Override
+    public Receta deleteCalificacionByAutor(String idReceta, Usuario autor) {
         Optional<Receta> receta = recetasService.getRecetaById(idReceta);
         if(receta.isEmpty()){
          throw new NullPointerException();
@@ -71,7 +85,7 @@ public class CalificacionService implements ICalificacionService {
         List<Calificacion> listaFinal = new ArrayList<>();
 
         for (Calificacion calif : calificaciones) {
-            if (calif.getIdCalificacion() != idCalificacion) {
+            if (calif.getAutor() != autor) {
                 listaFinal.add(calif);
             }
         }
