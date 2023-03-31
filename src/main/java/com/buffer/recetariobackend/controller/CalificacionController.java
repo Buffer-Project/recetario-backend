@@ -6,8 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.buffer.recetariobackend.entity.Receta;
+import com.buffer.recetariobackend.entity.Usuario;
 import com.buffer.recetariobackend.exception.RecetaNotFoundException;
-import com.buffer.recetariobackend.exception.RecetaException;
+import com.buffer.recetariobackend.exception.CalificacionAlreadyExistsException;
 import com.buffer.recetariobackend.service.ICalificacionService;
 
 @CrossOrigin()
@@ -37,7 +38,9 @@ public class CalificacionController {
     Receta recetaConCalificacionNueva = null;
     try {
       recetaConCalificacionNueva = calificacionService.calificar(id, calificacion);
-    } catch (RecetaException e) {
+    } catch (CalificacionAlreadyExistsException er) {
+      return ResponseEntity.unprocessableEntity().build();
+    } catch (RecetaNotFoundException e) {
       return ResponseEntity.notFound().build();
     }
 
@@ -45,10 +48,10 @@ public class CalificacionController {
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<Receta> deleteCalificacionByAutor(String idReceta, String autor) {
+  public ResponseEntity<Receta> deleteCalificacionByAutor(String id, Usuario autor) {
     Receta recetaFinal = null;
     try {
-      recetaFinal = calificacionService.deleteCalificacionByAutor(idReceta, autor);
+      recetaFinal = calificacionService.deleteCalificacionByAutor(id, autor);
     } catch (NullPointerException e) {
       return ResponseEntity.notFound().build();
     }
