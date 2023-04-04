@@ -42,8 +42,9 @@ public class CalificacionService implements ICalificacionService {
                 }
 
             }
-
+            
         }
+
         recetasService.updateReceta(receta);
         return receta;
     }
@@ -72,6 +73,7 @@ public class CalificacionService implements ICalificacionService {
             }
             if (index == calificaciones.size()) {
                 throw new CalificacionNotFoundException();
+
             }
 
         }
