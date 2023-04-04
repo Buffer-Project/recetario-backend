@@ -59,15 +59,21 @@ public class CalificacionService implements ICalificacionService {
         if (calificaciones == null) {
             throw new CalificacionNotFoundException();
         } else {
-            // evaluar la posibilidad de hacerlo con un while en vez del for
-            for (Calificacion califAEditar : calificaciones) {
-                if (califAEditar.getAutor() == calificacion.getAutor()) {
-                    califAEditar.setComentario(calificacion.getComentario());
-                    califAEditar.setPuntuacion(calificacion.getPuntuacion());
-                } else {
-                    throw new CalificacionNotFoundException();
-                }
+            int index = 0;
+            Calificacion calificacionAEditar = calificaciones.get(index);
+            while (!calificacionAEditar.getAutor().getId().equals( calificacion.getAutor().getId())
+                    && index < calificaciones.size()) {
+                calificacionAEditar = calificaciones.get(index);
+                index += 1;
             }
+            if (calificacionAEditar.getAutor().getId().equals(calificacion.getAutor().getId())) {
+                calificacionAEditar.setComentario(calificacion.getComentario());
+                calificacionAEditar.setPuntuacion(calificacion.getPuntuacion());
+            }
+            if (index == calificaciones.size()) {
+                throw new CalificacionNotFoundException();
+            }
+
         }
 
         return receta;
