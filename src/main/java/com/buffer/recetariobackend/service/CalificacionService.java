@@ -42,7 +42,7 @@ public class CalificacionService implements ICalificacionService {
                 }
 
             }
-            
+
         }
 
         recetasService.updateReceta(receta);
@@ -62,7 +62,7 @@ public class CalificacionService implements ICalificacionService {
         } else {
             int index = 0;
             Calificacion calificacionAEditar = calificaciones.get(index);
-            while (!calificacionAEditar.getAutor().getId().equals( calificacion.getAutor().getId())
+            while (!calificacionAEditar.getAutor().getId().equals(calificacion.getAutor().getId())
                     && index < calificaciones.size()) {
                 calificacionAEditar = calificaciones.get(index);
                 index += 1;
@@ -82,25 +82,35 @@ public class CalificacionService implements ICalificacionService {
     }
 
     @Override
-    public Receta deleteCalificacionByAutor(String idReceta, Usuario autor) {
-        Optional<Receta> receta = recetasService.getRecetaById(idReceta);
+    public Receta deleteCalificacionByAutor(String id, Usuario autor) {
+        Optional<Receta> receta = recetasService.getRecetaById(id);
         if (receta.isEmpty()) {
-            throw new NullPointerException();
+            throw new RecetaNotFoundException(id);
         }
         Receta recetaFinal = receta.get();
         List<Calificacion> calificaciones = recetaFinal.getCalificaciones();
         List<Calificacion> listaFinal = new ArrayList<>();
 
-        for (Calificacion calif : calificaciones) {
-            if (calif.getAutor() != autor) {
+        if (calificaciones == null) {
+            throw new CalificacionNotFoundException();
+        } else {
+            int index = 0;
+            Calificacion calif = calificaciones.get(index);
+            while (!calif.getAutor().getId().equals(autor.getId())
+                    && index < calificaciones.size()) {
                 listaFinal.add(calif);
+                calif = calificaciones.get(index);
+                index += 1;
             }
+
+            if (index == calificaciones.size()) {
+                throw new CalificacionNotFoundException();
+
+            }
+            recetaFinal.setCalificaciones(listaFinal);
         }
 
-        recetaFinal.setCalificaciones(listaFinal);
         recetasService.updateReceta(recetaFinal);
         return recetaFinal;
-
     }
-
 }

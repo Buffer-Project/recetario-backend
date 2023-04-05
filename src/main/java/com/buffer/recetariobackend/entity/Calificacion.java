@@ -39,4 +39,6 @@ public class Calificacion {
     public void setAutor(Usuario autor) {
         this.autor = autor;
     }
+
+    
 }

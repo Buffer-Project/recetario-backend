@@ -9,6 +9,7 @@ import com.buffer.recetariobackend.entity.Receta;
 import com.buffer.recetariobackend.entity.Usuario;
 import com.buffer.recetariobackend.exception.RecetaNotFoundException;
 import com.buffer.recetariobackend.exception.CalificacionAlreadyExistsException;
+import com.buffer.recetariobackend.exception.CalificacionNotFoundException;
 import com.buffer.recetariobackend.service.ICalificacionService;
 
 @CrossOrigin()
@@ -27,6 +28,8 @@ public class CalificacionController {
     try {
       recetaFinal = calificacionService.modificarCalificacion(id, calificacion);
     } catch (RecetaNotFoundException e) {
+      return ResponseEntity.notFound().build();
+    } catch (CalificacionNotFoundException er) {
       return ResponseEntity.notFound().build();
     }
     return ResponseEntity.ok(recetaFinal);
@@ -48,11 +51,13 @@ public class CalificacionController {
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<Receta> deleteCalificacionByAutor(String id, Usuario autor) {
+  public ResponseEntity<Receta> deleteCalificacionByAutor(@PathVariable String id, @RequestBody Usuario autor) {
     Receta recetaFinal = null;
     try {
       recetaFinal = calificacionService.deleteCalificacionByAutor(id, autor);
-    } catch (NullPointerException e) {
+    } catch (RecetaNotFoundException e) {
+      return ResponseEntity.notFound().build();
+    } catch (CalificacionNotFoundException er) {
       return ResponseEntity.notFound().build();
     }
 
