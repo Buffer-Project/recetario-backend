@@ -3,9 +3,9 @@ package com.buffer.recetariobackend.v2.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.buffer.recetariobackend.v1.dto.UsuarioDTO;
-import com.buffer.recetariobackend.v1.entity.Usuario;
-import com.buffer.recetariobackend.v1.repository.IUsuarioRepository;
+import com.buffer.recetariobackend.v2.dto.UsuarioDTO;
+import com.buffer.recetariobackend.v2.entity.Usuario;
+import com.buffer.recetariobackend.v2.repository.IUsuarioRepository;
 
 @Service
 public class UsuarioService implements IUsuarioService{
