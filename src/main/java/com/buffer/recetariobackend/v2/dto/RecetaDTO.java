@@ -2,9 +2,9 @@ package com.buffer.recetariobackend.v2.dto;
 
 import java.util.List;
 
-import com.buffer.recetariobackend.v1.entity.Calificacion;
-import com.buffer.recetariobackend.v1.entity.Ingrediente;
-import com.buffer.recetariobackend.v1.entity.Receta;
+import com.buffer.recetariobackend.v2.entity.Calificacion;
+import com.buffer.recetariobackend.v2.entity.Ingrediente;
+import com.buffer.recetariobackend.v2.entity.Receta;
 
 public class RecetaDTO {
     private String titulo;

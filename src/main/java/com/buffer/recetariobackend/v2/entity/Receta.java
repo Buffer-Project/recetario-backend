@@ -1,11 +1,11 @@
 package com.buffer.recetariobackend.v2.entity;
 
-import java.util.List;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.buffer.recetariobackend.v2.dto.RecetaDTO;
+
+import java.util.List;
 
 @Document("recetas")
 public class Receta {

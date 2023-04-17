@@ -10,21 +10,12 @@ import com.buffer.recetariobackend.v1.service.IUsuarioService;
 
 @CrossOrigin()
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api")
 public class UsuarioController {
     @Autowired
     private IUsuarioService usuarioService;
 
-    @PostMapping("/login")
-    public ResponseEntity<Usuario> login(@RequestBody UsuarioDTO user){
-        Usuario usuario = usuarioService.autenticarUsuario(user);
-        if(usuario == null){
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(usuario);
-    }
-
-    @PostMapping("/create")
+        @PostMapping("/users")
     public ResponseEntity<Usuario> register(@RequestBody UsuarioDTO user){
         Usuario usuario = usuarioService.crearUsuario(user);
         if (usuario == null) return ResponseEntity.badRequest().build();
