@@ -1,10 +1,10 @@
-package com.buffer.recetariobackend.service;
-
-import com.buffer.recetariobackend.dto.RecetaDTO;
-import com.buffer.recetariobackend.entity.Receta;
+package com.buffer.recetariobackend.v1.service;
 
 import java.util.List;
 import java.util.Optional;
+
+import com.buffer.recetariobackend.v1.dto.RecetaDTO;
+import com.buffer.recetariobackend.v1.entity.Receta;
 
 public interface IRecetasService {
 

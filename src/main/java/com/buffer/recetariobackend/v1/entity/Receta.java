@@ -1,12 +1,17 @@
-package com.buffer.recetariobackend.dto;
+package com.buffer.recetariobackend.v1.entity;
 
-import com.buffer.recetariobackend.entity.Calificacion;
-import com.buffer.recetariobackend.entity.Ingrediente;
-import com.buffer.recetariobackend.entity.Receta;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.buffer.recetariobackend.v1.dto.RecetaDTO;
 
 import java.util.List;
 
-public class RecetaDTO {
+@Document("recetas")
+public class Receta {
+
+    @Id
+    private String id;
     private String titulo;
     private String foto;
     private List<String> preparacion;
@@ -17,10 +22,12 @@ public class RecetaDTO {
 
     private List<Calificacion> calificaciones;
 
-    public RecetaDTO() {
+    public Receta() {
     }
 
-    public RecetaDTO(String titulo, String foto, List<String> preparacion, List<Ingrediente> ingredientes, String dificultad, List<Calificacion> calificaciones) {
+    public Receta(String id, String titulo, String foto, List<String> preparacion, List<Ingrediente> ingredientes,
+                  String dificultad, List<Calificacion> calificaciones) {
+        this.id = id;
         this.titulo = titulo;
         this.foto = foto;
         this.preparacion = preparacion;
@@ -29,8 +36,16 @@ public class RecetaDTO {
         this.calificaciones = calificaciones;
     }
 
-    public Receta toReceta(){
-        return new Receta(null, this.titulo, this.foto, this.preparacion, this.ingredientes, this.dificultad, this.calificaciones);
+    public RecetaDTO toRecetaDTO() {
+        return new RecetaDTO(this.titulo, this.foto, this.preparacion, this.ingredientes, this.dificultad, this.calificaciones);
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitulo() {
@@ -72,4 +87,14 @@ public class RecetaDTO {
     public void setDificultad(String dificultad) {
         this.dificultad = dificultad;
     }
+
+    public List<Calificacion> getCalificaciones() {
+        return calificaciones;
+    }
+
+    public void setCalificaciones(List<Calificacion> calificaciones) {
+        this.calificaciones = calificaciones;
+    }
+
+    
 }

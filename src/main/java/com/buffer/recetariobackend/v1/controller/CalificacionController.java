@@ -1,16 +1,16 @@
-package com.buffer.recetariobackend.controller;
+package com.buffer.recetariobackend.v1.controller;
 
-import com.buffer.recetariobackend.entity.Calificacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.buffer.recetariobackend.entity.Receta;
-import com.buffer.recetariobackend.entity.Usuario;
-import com.buffer.recetariobackend.exception.RecetaNotFoundException;
-import com.buffer.recetariobackend.exception.CalificacionAlreadyExistsException;
-import com.buffer.recetariobackend.exception.CalificacionNotFoundException;
-import com.buffer.recetariobackend.service.ICalificacionService;
+import com.buffer.recetariobackend.v1.entity.Calificacion;
+import com.buffer.recetariobackend.v1.entity.Receta;
+import com.buffer.recetariobackend.v1.entity.Usuario;
+import com.buffer.recetariobackend.v1.exception.CalificacionAlreadyExistsException;
+import com.buffer.recetariobackend.v1.exception.CalificacionNotFoundException;
+import com.buffer.recetariobackend.v1.exception.RecetaNotFoundException;
+import com.buffer.recetariobackend.v1.service.ICalificacionService;
 
 @CrossOrigin()
 

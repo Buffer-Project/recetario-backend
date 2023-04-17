@@ -1,4 +1,4 @@
-package com.buffer.recetariobackend.entity;
+package com.buffer.recetariobackend.v1.entity;
 
 public class Calificacion {
 

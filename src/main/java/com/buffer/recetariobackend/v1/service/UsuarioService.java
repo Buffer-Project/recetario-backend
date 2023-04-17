@@ -1,10 +1,11 @@
-package com.buffer.recetariobackend.service;
+package com.buffer.recetariobackend.v1.service;
 
-import com.buffer.recetariobackend.dto.UsuarioDTO;
-import com.buffer.recetariobackend.entity.Usuario;
-import com.buffer.recetariobackend.repository.IUsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.buffer.recetariobackend.v1.dto.UsuarioDTO;
+import com.buffer.recetariobackend.v1.entity.Usuario;
+import com.buffer.recetariobackend.v1.repository.IUsuarioRepository;
 
 @Service
 public class UsuarioService implements IUsuarioService{

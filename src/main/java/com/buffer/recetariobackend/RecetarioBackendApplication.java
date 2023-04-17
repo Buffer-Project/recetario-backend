@@ -1,6 +1,6 @@
 package com.buffer.recetariobackend;
 
-import com.buffer.recetariobackend.repository.IRecetaRepository;
+import com.buffer.recetariobackend.v1.repository.IRecetaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

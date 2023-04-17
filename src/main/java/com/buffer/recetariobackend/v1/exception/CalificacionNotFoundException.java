@@ -1,4 +1,4 @@
-package com.buffer.recetariobackend.exception;
+package com.buffer.recetariobackend.v1.exception;
 
 public class CalificacionNotFoundException extends RecetaException {
 

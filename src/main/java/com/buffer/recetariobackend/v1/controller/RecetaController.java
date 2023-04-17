@@ -1,11 +1,12 @@
-package com.buffer.recetariobackend.controller;
+package com.buffer.recetariobackend.v1.controller;
 
-import com.buffer.recetariobackend.dto.RecetaDTO;
-import com.buffer.recetariobackend.entity.Receta;
-import com.buffer.recetariobackend.service.IRecetasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import com.buffer.recetariobackend.v1.dto.RecetaDTO;
+import com.buffer.recetariobackend.v1.entity.Receta;
+import com.buffer.recetariobackend.v1.service.IRecetasService;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,8 +1,8 @@
-package com.buffer.recetariobackend.service;
+package com.buffer.recetariobackend.v1.service;
 
-import com.buffer.recetariobackend.entity.Calificacion;
-import com.buffer.recetariobackend.entity.Receta;
-import com.buffer.recetariobackend.entity.Usuario;
+import com.buffer.recetariobackend.v1.entity.Calificacion;
+import com.buffer.recetariobackend.v1.entity.Receta;
+import com.buffer.recetariobackend.v1.entity.Usuario;
 
 public interface ICalificacionService {
 

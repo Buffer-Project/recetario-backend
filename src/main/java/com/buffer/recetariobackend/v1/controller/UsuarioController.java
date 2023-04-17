@@ -1,11 +1,12 @@
-package com.buffer.recetariobackend.controller;
+package com.buffer.recetariobackend.v1.controller;
 
-import com.buffer.recetariobackend.dto.UsuarioDTO;
-import com.buffer.recetariobackend.entity.Usuario;
-import com.buffer.recetariobackend.service.IUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import com.buffer.recetariobackend.v1.dto.UsuarioDTO;
+import com.buffer.recetariobackend.v1.entity.Usuario;
+import com.buffer.recetariobackend.v1.service.IUsuarioService;
 
 @CrossOrigin()
 @RestController

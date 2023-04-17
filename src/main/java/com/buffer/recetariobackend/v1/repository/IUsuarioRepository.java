@@ -1,7 +1,8 @@
-package com.buffer.recetariobackend.repository;
+package com.buffer.recetariobackend.v1.repository;
 
-import com.buffer.recetariobackend.entity.Usuario;
 import org.springframework.data.mongodb.repository.MongoRepository;
+
+import com.buffer.recetariobackend.v1.entity.Usuario;
 
 public interface IUsuarioRepository extends MongoRepository<Usuario, String> {
 

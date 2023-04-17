@@ -1,18 +1,32 @@
-package com.buffer.recetariobackend.dto;
+package com.buffer.recetariobackend.v1.entity;
 
-public class UsuarioDTO {
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document("users")
+public class Usuario {
+    @Id
+    private String id;
     private String username;
     private String password;
     private String name;
 
-    public UsuarioDTO() {
+    public Usuario() {
     }
 
-    public UsuarioDTO(String username, String password, String name) {
+    public Usuario(String id, String username, String password, String name) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.name = name;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getUsername() {
