@@ -3,9 +3,9 @@ package com.buffer.recetariobackend.v2.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.buffer.recetariobackend.v1.dto.RecetaDTO;
-import com.buffer.recetariobackend.v1.entity.Receta;
-import com.buffer.recetariobackend.v1.repository.IRecetaRepository;
+import com.buffer.recetariobackend.v2.dto.RecetaDTO;
+import com.buffer.recetariobackend.v2.entity.Receta;
+import com.buffer.recetariobackend.v2.repository.IRecetaRepository;
 
 import java.util.List;
 import java.util.Optional;

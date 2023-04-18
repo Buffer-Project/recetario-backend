@@ -3,8 +3,8 @@ package com.buffer.recetariobackend.v2.service;
 import java.util.List;
 import java.util.Optional;
 
-import com.buffer.recetariobackend.v1.dto.RecetaDTO;
-import com.buffer.recetariobackend.v1.entity.Receta;
+import com.buffer.recetariobackend.v2.dto.RecetaDTO;
+import com.buffer.recetariobackend.v2.entity.Receta;
 
 public interface IRecetasService {
 

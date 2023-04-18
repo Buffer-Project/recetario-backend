@@ -14,13 +14,13 @@ import com.buffer.recetariobackend.v2.service.IUsuarioService;
 
 @CrossOrigin()
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v2")
 public class SessionController {
 
     @Autowired
     private IUsuarioService usuarioService;
     
-    @PostMapping("/session")
+    @PostMapping("/sessions")
     public ResponseEntity<Usuario> login(@RequestBody UsuarioDTO user){
         Usuario usuario = usuarioService.autenticarUsuario(user);
         if(usuario == null){

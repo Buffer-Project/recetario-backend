@@ -6,12 +6,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.buffer.recetariobackend.v1.entity.Calificacion;
-import com.buffer.recetariobackend.v1.entity.Receta;
-import com.buffer.recetariobackend.v1.entity.Usuario;
-import com.buffer.recetariobackend.v1.exception.CalificacionAlreadyExistsException;
-import com.buffer.recetariobackend.v1.exception.CalificacionNotFoundException;
-import com.buffer.recetariobackend.v1.exception.RecetaNotFoundException;
+import com.buffer.recetariobackend.v2.entity.Calificacion;
+import com.buffer.recetariobackend.v2.entity.Receta;
+import com.buffer.recetariobackend.v2.entity.Usuario;
+import com.buffer.recetariobackend.v2.exception.CalificacionAlreadyExistsException;
+import com.buffer.recetariobackend.v2.exception.CalificacionNotFoundException;
+import com.buffer.recetariobackend.v2.exception.RecetaNotFoundException;
 
 @Service
 public class CalificacionService implements ICalificacionService {
