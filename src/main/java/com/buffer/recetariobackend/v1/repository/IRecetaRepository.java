@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.buffer.recetariobackend.v1.entity.Receta;
 
-@Repository
+@Repository("v1.IRecetaRepository")
 public interface IRecetaRepository extends MongoRepository<Receta, String> {
 
     long count();
