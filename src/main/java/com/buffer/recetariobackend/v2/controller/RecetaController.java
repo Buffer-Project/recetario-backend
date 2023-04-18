@@ -70,7 +70,7 @@ public class RecetaController {
 
     // METODOS PARA LAS CALIFICACIONES
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/{id}/calificaciones")
     public ResponseEntity<Receta> modificarCalificacion(@PathVariable String id,
             @RequestBody Calificacion calificacion) {
 
@@ -86,7 +86,7 @@ public class RecetaController {
 
     }
 
-    @PostMapping("/{id}")
+    @PostMapping("/{id}/calificaciones")
     public ResponseEntity<Receta> calificar(@PathVariable String id, @RequestBody Calificacion calificacion) {
         Receta recetaConCalificacionNueva = null;
         try {
@@ -100,7 +100,7 @@ public class RecetaController {
         return ResponseEntity.ok(recetaConCalificacionNueva);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}/calificaciones")
     public ResponseEntity<Receta> deleteCalificacionByAutor(@PathVariable String id, @RequestBody Usuario autor) {
         Receta recetaFinal = null;
         try {
