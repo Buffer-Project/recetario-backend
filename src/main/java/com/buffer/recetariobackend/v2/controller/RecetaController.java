@@ -70,7 +70,7 @@ public class RecetaController {
 
     // METODOS PARA LAS CALIFICACIONES
 
-    @PostMapping("/{id}/calificaciones")
+    @PostMapping("/{idReceta}/calificaciones")
     public ResponseEntity<Receta> calificar(@PathVariable String idReceta, @RequestBody Calificacion calificacion) {
         Receta recetaConCalificacionNueva = null;
         try {
