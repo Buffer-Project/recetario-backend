@@ -11,7 +11,7 @@ import java.util.List;
 public class Receta {
 
     @Id
-    private String id;
+    private String idReceta;
     private String titulo;
     private String foto;
     private List<String> preparacion;
@@ -25,9 +25,10 @@ public class Receta {
     public Receta() {
     }
 
-    public Receta(String id, String titulo, String foto, List<String> preparacion, List<Ingrediente> ingredientes,
+    public Receta(String idReceta, String titulo, String foto, List<String> preparacion, List<Ingrediente> ingredientes,
                   String dificultad, List<Calificacion> calificaciones) {
-        this.id = id;
+
+        this.idReceta = idReceta;
         this.titulo = titulo;
         this.foto = foto;
         this.preparacion = preparacion;
@@ -40,12 +41,12 @@ public class Receta {
         return new RecetaDTO(this.titulo, this.foto, this.preparacion, this.ingredientes, this.dificultad, this.calificaciones);
     }
 
-    public String getId() {
-        return id;
+    public String getIdReceta() {
+        return idReceta;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setIdReceta(String idReceta) {
+        this.idReceta = idReceta;
     }
 
     public String getTitulo() {

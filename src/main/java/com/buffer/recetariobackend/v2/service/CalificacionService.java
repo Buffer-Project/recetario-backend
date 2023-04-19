@@ -6,12 +6,14 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.buffer.recetariobackend.v2.dto.UsuarioDTO;
 import com.buffer.recetariobackend.v2.entity.Calificacion;
 import com.buffer.recetariobackend.v2.entity.Receta;
-import com.buffer.recetariobackend.v2.entity.Usuario;
 import com.buffer.recetariobackend.v2.exception.CalificacionAlreadyExistsException;
 import com.buffer.recetariobackend.v2.exception.CalificacionNotFoundException;
 import com.buffer.recetariobackend.v2.exception.RecetaNotFoundException;
+import com.buffer.recetariobackend.v2.exception.UsuarioNotFoundException;
+import com.buffer.recetariobackend.v2.repository.IRecetaRepository;
 
 @Service
 public class CalificacionService implements ICalificacionService {
@@ -19,12 +21,15 @@ public class CalificacionService implements ICalificacionService {
     @Autowired
     private IRecetasService recetasService;
 
-    @Override
-    public Receta calificar(String id, Calificacion calificacion) {
+    @Autowired
+    private IRecetaRepository recetasRepository;
 
-        Optional<Receta> recetaConCalificaciones = recetasService.getRecetaById(id);
+    @Override
+    public Receta calificar(String idReceta, Calificacion calificacion) {
+
+        Optional<Receta> recetaConCalificaciones = recetasService.getRecetaById(idReceta);
         if (recetaConCalificaciones.isEmpty()) {
-            throw new RecetaNotFoundException(id);
+            throw new RecetaNotFoundException(idReceta);
         }
         Receta receta = recetaConCalificaciones.get();
         List<Calificacion> calificaciones = receta.getCalificaciones();
@@ -34,9 +39,13 @@ public class CalificacionService implements ICalificacionService {
             calificacionesAgregadas.add(calificacion);
             receta.setCalificaciones(calificacionesAgregadas);
 
+        } else if (recetasRepository.findById(calificacion.getIdUser()).isEmpty()) {
+
+            throw new UsuarioNotFoundException();
+
         } else {
             for (Calificacion calif : calificaciones) {
-                if (calif.getAutor().getId().equals(calificacion.getAutor().getId())) {
+                if (calif.getIdUser().equals(calificacion.getIdUser())) {
                     throw new CalificacionAlreadyExistsException();
                 } else {
                     calificaciones.add(calificacion);
@@ -63,12 +72,12 @@ public class CalificacionService implements ICalificacionService {
         } else {
             int index = 0;
             Calificacion calificacionAEditar = calificaciones.get(index);
-            while (!calificacionAEditar.getAutor().getId().equals(calificacion.getAutor().getId())
+            while (!calificacionAEditar.getIdCalificacion().equals(calificacion.getIdCalificacion())
                     && index < calificaciones.size()) {
                 calificacionAEditar = calificaciones.get(index);
                 index += 1;
             }
-            if (calificacionAEditar.getAutor().getId().equals(calificacion.getAutor().getId())) {
+            if (calificacionAEditar.getIdCalificacion().equals(calificacion.getIdCalificacion())) {
                 calificacionAEditar.setComentario(calificacion.getComentario());
                 calificacionAEditar.setPuntuacion(calificacion.getPuntuacion());
             }
@@ -83,10 +92,10 @@ public class CalificacionService implements ICalificacionService {
     }
 
     @Override
-    public Receta deleteCalificacionByAutor(String id, Usuario autor) {
-        Optional<Receta> receta = recetasService.getRecetaById(id);
+    public Receta deleteCalificacionByAutor(String idReceta, UsuarioDTO autor) {
+        Optional<Receta> receta = recetasService.getRecetaById(idReceta);
         if (receta.isEmpty()) {
-            throw new RecetaNotFoundException(id);
+            throw new RecetaNotFoundException(idReceta);
         }
         Receta recetaFinal = receta.get();
         List<Calificacion> calificaciones = recetaFinal.getCalificaciones();
@@ -97,7 +106,7 @@ public class CalificacionService implements ICalificacionService {
         } else {
             int index = 0;
             Calificacion calif = calificaciones.get(index);
-            while (!calif.getAutor().getId().equals(autor.getId())
+            while (!calif.getIdUser().equals(autor.getIdUsuarioDTO())
                     && index < calificaciones.size()) {
                 listaFinal.add(calif);
                 calif = calificaciones.get(index);

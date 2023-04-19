@@ -5,9 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.buffer.recetariobackend.v2.dto.RecetaDTO;
+import com.buffer.recetariobackend.v2.dto.UsuarioDTO;
 import com.buffer.recetariobackend.v2.entity.Calificacion;
 import com.buffer.recetariobackend.v2.entity.Receta;
-import com.buffer.recetariobackend.v2.entity.Usuario;
 import com.buffer.recetariobackend.v2.exception.CalificacionAlreadyExistsException;
 import com.buffer.recetariobackend.v2.exception.CalificacionNotFoundException;
 import com.buffer.recetariobackend.v2.exception.RecetaNotFoundException;
@@ -35,16 +35,16 @@ public class RecetaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Receta> getRecetaById(@PathVariable String id) {
-        Optional<Receta> receta = recetasService.getRecetaById(id);
+    public ResponseEntity<Receta> getRecetaById(@PathVariable String idReceta) {
+        Optional<Receta> receta = recetasService.getRecetaById(idReceta);
         return receta.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Receta> deleteRecetaById(@PathVariable String id) {
-        Optional<Receta> receta = recetasService.getRecetaById(id);
+    public ResponseEntity<Receta> deleteRecetaById(@PathVariable String idReceta) {
+        Optional<Receta> receta = recetasService.getRecetaById(idReceta);
         if (receta.isPresent()) {
-            recetasService.deleteRecetaById(id);
+            recetasService.deleteRecetaById(idReceta);
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();
@@ -60,7 +60,7 @@ public class RecetaController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<Receta> update(@RequestBody Receta receta) {
-        Optional<Receta> rec = recetasService.getRecetaById(receta.getId());
+        Optional<Receta> rec = recetasService.getRecetaById(receta.getIdReceta());
         if (rec.isPresent()) {
             recetasService.updateReceta(receta);
             return ResponseEntity.ok(receta);
@@ -70,27 +70,11 @@ public class RecetaController {
 
     // METODOS PARA LAS CALIFICACIONES
 
-    @PatchMapping("/{id}/calificaciones")
-    public ResponseEntity<Receta> modificarCalificacion(@PathVariable String id,
-            @RequestBody Calificacion calificacion) {
-
-        Receta recetaFinal = null;
-        try {
-            recetaFinal = calificacionService.modificarCalificacion(id, calificacion);
-        } catch (RecetaNotFoundException e) {
-            return ResponseEntity.notFound().build();
-        } catch (CalificacionNotFoundException er) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(recetaFinal);
-
-    }
-
     @PostMapping("/{id}/calificaciones")
-    public ResponseEntity<Receta> calificar(@PathVariable String id, @RequestBody Calificacion calificacion) {
+    public ResponseEntity<Receta> calificar(@PathVariable String idReceta, @RequestBody Calificacion calificacion) {
         Receta recetaConCalificacionNueva = null;
         try {
-            recetaConCalificacionNueva = calificacionService.calificar(id, calificacion);
+            recetaConCalificacionNueva = calificacionService.calificar(idReceta, calificacion);
         } catch (CalificacionAlreadyExistsException er) {
             return ResponseEntity.unprocessableEntity().build();
         } catch (RecetaNotFoundException e) {
@@ -100,11 +84,28 @@ public class RecetaController {
         return ResponseEntity.ok(recetaConCalificacionNueva);
     }
 
-    @DeleteMapping("/{id}/calificaciones")
-    public ResponseEntity<Receta> deleteCalificacionByAutor(@PathVariable String id, @RequestBody Usuario autor) {
+    @PatchMapping("/{id}/calificaciones")
+    public ResponseEntity<Receta> modificarCalificacion(@PathVariable String idReceta,
+            @RequestBody Calificacion calificacion) {
+
         Receta recetaFinal = null;
         try {
-            recetaFinal = calificacionService.deleteCalificacionByAutor(id, autor);
+            recetaFinal = calificacionService.modificarCalificacion(idReceta, calificacion);
+        } catch (RecetaNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        } catch (CalificacionNotFoundException er) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(recetaFinal);
+
+    }
+
+    @DeleteMapping("/{id}/calificaciones")
+    public ResponseEntity<Receta> deleteCalificacionByAutor(@PathVariable String idReceta,
+            @RequestBody UsuarioDTO autor) {
+        Receta recetaFinal = null;
+        try {
+            recetaFinal = calificacionService.deleteCalificacionByAutor(idReceta, autor);
         } catch (RecetaNotFoundException e) {
             return ResponseEntity.notFound().build();
         } catch (CalificacionNotFoundException er) {

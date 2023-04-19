@@ -1,19 +1,25 @@
 package com.buffer.recetariobackend.v2.entity;
 
+import org.springframework.data.annotation.Id;
+
 public class Calificacion {
 
     private String comentario;
 
     private int puntuacion;
-    
-    private Usuario autor;
 
-    public Calificacion(){}
+    private String idUser;
 
-    public Calificacion(String comentario, int puntuacion, Usuario autor) {
+    @Id
+    private String idCalificacion;
+
+    public Calificacion() {
+    }
+
+    public Calificacion(String comentario, int puntuacion, String idUser) {
         this.comentario = comentario;
         this.puntuacion = puntuacion;
-        this.autor = autor;
+        this.idUser = idUser;
     }
 
     public String getComentario() {
@@ -32,13 +38,20 @@ public class Calificacion {
         this.puntuacion = puntuacion;
     }
 
-    public Usuario getAutor() {
-        return autor;
+    public String getIdUser() {
+        return idUser;
     }
 
-    public void setAutor(Usuario autor) {
-        this.autor = autor;
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
+    } 
+
+    public String getIdCalificacion() {
+        return idCalificacion;
     }
 
-    
+    public void setIdCalificacion(String idCalificacion) {
+        this.idCalificacion = idCalificacion;
+    }
+
 }

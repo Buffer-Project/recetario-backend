@@ -2,6 +2,7 @@ package com.buffer.recetariobackend.v2.dto;
 
 public class UsuarioDTO {
 
+    private String idUsuarioDTO;
     private String username;
     private String password;
     private String name;
@@ -37,5 +38,13 @@ public class UsuarioDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getIdUsuarioDTO() {
+        return idUsuarioDTO;
+    }
+
+    public void setIdUsuarioDTO(String idUsuarioDTO) {
+        this.idUsuarioDTO = idUsuarioDTO;
     }
 }
