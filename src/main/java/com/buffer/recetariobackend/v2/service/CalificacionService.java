@@ -12,7 +12,9 @@ import com.buffer.recetariobackend.v2.entity.Receta;
 import com.buffer.recetariobackend.v2.exception.CalificacionAlreadyExistsException;
 import com.buffer.recetariobackend.v2.exception.CalificacionNotFoundException;
 import com.buffer.recetariobackend.v2.exception.RecetaNotFoundException;
+import com.buffer.recetariobackend.v2.exception.UserNotAllowedException;
 import com.buffer.recetariobackend.v2.exception.UsuarioNotFoundException;
+import com.buffer.recetariobackend.v2.repository.ICalificacionRepository;
 
 @Service
 public class CalificacionService implements ICalificacionService {
@@ -22,6 +24,12 @@ public class CalificacionService implements ICalificacionService {
 
     @Autowired
     private IUsuarioService usuarioService;
+
+    @Autowired
+    private ICalificacionService calificacionService;
+
+    @Autowired
+    private ICalificacionRepository calificacionRepository;
 
     @Override
     public Receta calificar(String idReceta, Calificacion calificacion) {
@@ -58,33 +66,37 @@ public class CalificacionService implements ICalificacionService {
 
     @Override
     public Receta modificarCalificacion(String idReceta, Calificacion calificacion) {
+
+        if (usuarioService.getUserById(calificacion.getIdUser()).isEmpty()) {
+            throw new UsuarioNotFoundException();
+        }
+
         Optional<Receta> recetaDraft = recetasService.getRecetaById(idReceta);
         if (recetaDraft.isEmpty()) {
             throw new RecetaNotFoundException(idReceta);
         }
         Receta receta = recetaDraft.get();
+
+
         List<Calificacion> calificaciones = receta.getCalificaciones();
-        if (calificaciones == null) {
+        if (calificaciones.isEmpty()) {
             throw new CalificacionNotFoundException();
         } else {
-            int index = 0;
-            Calificacion calificacionAEditar = calificaciones.get(index);
-            while (!calificacionAEditar.getIdCalificacion().equals(calificacion.getIdCalificacion())
-                    && index < calificaciones.size()) {
-                calificacionAEditar = calificaciones.get(index);
-                index += 1;
-            }
-            if (calificacionAEditar.getIdCalificacion().equals(calificacion.getIdCalificacion())) {
-                calificacionAEditar.setComentario(calificacion.getComentario());
-                calificacionAEditar.setPuntuacion(calificacion.getPuntuacion());
-            }
-            if (index == calificaciones.size()) {
+            
+            Optional<Calificacion> calificacionAEditar = calificacionService.findCalificacionById(calificacion.getIdCalificacion());
+
+            if (calificacionAEditar.isEmpty()) {
                 throw new CalificacionNotFoundException();
+            } 
+            
+            Calificacion califFinal = calificacionAEditar.get();
 
+            if(!califFinal.getIdUser().equals(calificacion.getIdUser())){
+                throw new UserNotAllowedException();
             }
-
+            califFinal.setComentario(calificacion.getComentario());
+            califFinal.setPuntuacion(calificacion.getPuntuacion());         
         }
-
         return receta;
     }
 
@@ -120,4 +132,10 @@ public class CalificacionService implements ICalificacionService {
         recetasService.updateReceta(recetaFinal);
         return recetaFinal;
     }
+
+    @Override
+    public Optional<Calificacion> findCalificacionById(String idCalificacion) {
+        return calificacionRepository.findById(idCalificacion);
+    }
+
 }
