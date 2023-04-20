@@ -11,6 +11,7 @@ import com.buffer.recetariobackend.v2.entity.Receta;
 import com.buffer.recetariobackend.v2.exception.CalificacionAlreadyExistsException;
 import com.buffer.recetariobackend.v2.exception.CalificacionNotFoundException;
 import com.buffer.recetariobackend.v2.exception.RecetaNotFoundException;
+import com.buffer.recetariobackend.v2.exception.UsuarioNotFoundException;
 import com.buffer.recetariobackend.v2.service.ICalificacionService;
 import com.buffer.recetariobackend.v2.service.IRecetasService;
 
@@ -78,6 +79,8 @@ public class RecetaController {
         } catch (CalificacionAlreadyExistsException er) {
             return ResponseEntity.unprocessableEntity().build();
         } catch (RecetaNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        } catch (UsuarioNotFoundException err){
             return ResponseEntity.notFound().build();
         }
 

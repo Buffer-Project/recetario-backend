@@ -7,4 +7,6 @@ import com.buffer.recetariobackend.v2.entity.Usuario;
 public interface IUsuarioRepository extends MongoRepository<Usuario, String> {
 
     Usuario findByUsernameAndPassword(String username, String password);
+
+    
 }

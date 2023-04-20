@@ -13,7 +13,6 @@ import com.buffer.recetariobackend.v2.exception.CalificacionAlreadyExistsExcepti
 import com.buffer.recetariobackend.v2.exception.CalificacionNotFoundException;
 import com.buffer.recetariobackend.v2.exception.RecetaNotFoundException;
 import com.buffer.recetariobackend.v2.exception.UsuarioNotFoundException;
-import com.buffer.recetariobackend.v2.repository.IRecetaRepository;
 
 @Service
 public class CalificacionService implements ICalificacionService {
@@ -22,39 +21,37 @@ public class CalificacionService implements ICalificacionService {
     private IRecetasService recetasService;
 
     @Autowired
-    private IRecetaRepository recetasRepository;
+    private IUsuarioService usuarioService;
 
     @Override
     public Receta calificar(String idReceta, Calificacion calificacion) {
+        if (usuarioService.getUserById(calificacion.getIdUser()).isEmpty()) {
+            throw new UsuarioNotFoundException();
+        }
 
         Optional<Receta> recetaConCalificaciones = recetasService.getRecetaById(idReceta);
         if (recetaConCalificaciones.isEmpty()) {
             throw new RecetaNotFoundException(idReceta);
         }
+
         Receta receta = recetaConCalificaciones.get();
         List<Calificacion> calificaciones = receta.getCalificaciones();
 
-        if (calificaciones == null) {
+        if (calificaciones.isEmpty()) {
             List<Calificacion> calificacionesAgregadas = new ArrayList<>();
             calificacionesAgregadas.add(calificacion);
             receta.setCalificaciones(calificacionesAgregadas);
 
-        } else if (recetasRepository.findById(calificacion.getIdUser()).isEmpty()) {
-
-            throw new UsuarioNotFoundException();
-
         } else {
+
             for (Calificacion calif : calificaciones) {
                 if (calif.getIdUser().equals(calificacion.getIdUser())) {
                     throw new CalificacionAlreadyExistsException();
                 } else {
                     calificaciones.add(calificacion);
                 }
-
             }
-
         }
-
         recetasService.updateReceta(receta);
         return receta;
     }
