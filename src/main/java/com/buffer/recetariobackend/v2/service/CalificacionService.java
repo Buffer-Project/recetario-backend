@@ -26,9 +26,6 @@ public class CalificacionService implements ICalificacionService {
     private IUsuarioService usuarioService;
 
     @Autowired
-    private ICalificacionService calificacionService;
-
-    @Autowired
     private ICalificacionRepository calificacionRepository;
 
     @Override
@@ -77,13 +74,11 @@ public class CalificacionService implements ICalificacionService {
         }
         Receta receta = recetaDraft.get();
 
-
-        List<Calificacion> calificaciones = receta.getCalificaciones();
-        if (calificaciones.isEmpty()) {
+        if (receta.getCalificaciones().isEmpty()) {
             throw new CalificacionNotFoundException();
         } else {
             
-            Optional<Calificacion> calificacionAEditar = calificacionService.findCalificacionById(calificacion.getIdCalificacion());
+            Optional<Calificacion> calificacionAEditar = findCalificacionById(calificacion.getIdCalificacion());
 
             if (calificacionAEditar.isEmpty()) {
                 throw new CalificacionNotFoundException();
@@ -97,6 +92,7 @@ public class CalificacionService implements ICalificacionService {
             califFinal.setComentario(calificacion.getComentario());
             califFinal.setPuntuacion(calificacion.getPuntuacion());         
         }
+        recetasService.updateReceta(receta);
         return receta;
     }
 
