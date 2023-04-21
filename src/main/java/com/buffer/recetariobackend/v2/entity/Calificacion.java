@@ -1,7 +1,8 @@
 package com.buffer.recetariobackend.v2.entity;
 
 import org.springframework.data.annotation.Id;
-
+import org.springframework.data.mongodb.core.mapping.Document;
+@Document("calificaciones")
 public class Calificacion {
 
     private String comentario;

@@ -97,31 +97,35 @@ public class CalificacionService implements ICalificacionService {
     }
 
     @Override
-    public Receta deleteCalificacionByAutor(String idReceta, UsuarioDTO autor) {
-        Optional<Receta> receta = recetasService.getRecetaById(idReceta);
+    public Receta deleteCalificacionByIdCalificacion(String idReceta, String idCalificacion, String idUser) {
+
+        if (usuarioService.getUserById(idUser).isEmpty()) {
+            throw new UsuarioNotFoundException();
+        }
+
+        Optional<Receta> receta = recetasService.getRecetaById(idReceta);   
         if (receta.isEmpty()) {
             throw new RecetaNotFoundException(idReceta);
         }
+
         Receta recetaFinal = receta.get();
         List<Calificacion> calificaciones = recetaFinal.getCalificaciones();
         List<Calificacion> listaFinal = new ArrayList<>();
 
-        if (calificaciones == null) {
+        if (calificaciones.isEmpty()) {
             throw new CalificacionNotFoundException();
         } else {
-            int index = 0;
-            Calificacion calif = calificaciones.get(index);
-            while (!calif.getIdUser().equals(autor.getIdUsuarioDTO())
-                    && index < calificaciones.size()) {
-                listaFinal.add(calif);
-                calif = calificaciones.get(index);
-                index += 1;
-            }
+            Optional<Calificacion>califABorrar = findCalificacionById(idCalificacion);
 
-            if (index == calificaciones.size()) {
+            if (califABorrar.isEmpty()) {
                 throw new CalificacionNotFoundException();
+            } else {          
+                calificaciones.stream()
+                              .filter(calificacion  -> calificacion.getIdCalificacion() != califABorrar.getIdCalificacion());
+                              // seguir el filter
+            }               
 
-            }
+            
             recetaFinal.setCalificaciones(listaFinal);
         }
 

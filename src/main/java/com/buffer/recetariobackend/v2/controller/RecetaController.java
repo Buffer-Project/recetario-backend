@@ -88,7 +88,7 @@ public class RecetaController {
         return ResponseEntity.ok(recetaConCalificacionNueva);
     }
 
-    @PatchMapping("/{id}/calificaciones")
+    @PatchMapping("/{idReceta}/calificaciones")
     public ResponseEntity<Receta> modificarCalificacion(@PathVariable String idReceta,
             @RequestBody Calificacion calificacion) {
 
@@ -108,12 +108,12 @@ public class RecetaController {
 
     }
 
-    @DeleteMapping("/{id}/calificaciones")
-    public ResponseEntity<Receta> deleteCalificacionByAutor(@PathVariable String idReceta,
-            @RequestBody UsuarioDTO autor) {
+    @DeleteMapping("/{idReceta}/calificaciones")
+    public ResponseEntity<Receta> deleteCalificacionByIdCalificacion(@PathVariable String idReceta,
+            @RequestBody String idAutor) {
         Receta recetaFinal = null;
         try {
-            recetaFinal = calificacionService.deleteCalificacionByAutor(idReceta, autor);
+            recetaFinal = calificacionService.deleteCalificacionByIdCalificacion(idReceta, idAutor);
         } catch (RecetaNotFoundException e) {
             return ResponseEntity.notFound().build();
         } catch (CalificacionNotFoundException er) {

@@ -2,7 +2,6 @@ package com.buffer.recetariobackend.v2.service;
 
 import java.util.Optional;
 
-import com.buffer.recetariobackend.v2.dto.UsuarioDTO;
 import com.buffer.recetariobackend.v2.entity.Calificacion;
 import com.buffer.recetariobackend.v2.entity.Receta;
 
@@ -14,6 +13,6 @@ public interface ICalificacionService {
 
     public Receta modificarCalificacion(String idReceta, Calificacion calificacion);
 
-    public Receta deleteCalificacionByAutor(String idReceta, UsuarioDTO autor);
+    public Receta deleteCalificacionByIdCalificacion(String idReceta, String idCalificacion, String idUser);
     
 }
