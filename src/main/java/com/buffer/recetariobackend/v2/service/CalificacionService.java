@@ -3,6 +3,8 @@ package com.buffer.recetariobackend.v2.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,8 @@ import com.buffer.recetariobackend.v2.exception.RecetaNotFoundException;
 import com.buffer.recetariobackend.v2.exception.UserNotAllowedException;
 import com.buffer.recetariobackend.v2.exception.UsuarioNotFoundException;
 import com.buffer.recetariobackend.v2.repository.ICalificacionRepository;
+
+import ch.qos.logback.core.filter.Filter;
 
 @Service
 public class CalificacionService implements ICalificacionService {
@@ -77,20 +81,20 @@ public class CalificacionService implements ICalificacionService {
         if (receta.getCalificaciones().isEmpty()) {
             throw new CalificacionNotFoundException();
         } else {
-            
+
             Optional<Calificacion> calificacionAEditar = findCalificacionById(calificacion.getIdCalificacion());
 
             if (calificacionAEditar.isEmpty()) {
                 throw new CalificacionNotFoundException();
-            } 
-            
+            }
+
             Calificacion califFinal = calificacionAEditar.get();
 
-            if(!califFinal.getIdUser().equals(calificacion.getIdUser())){
+            if (!califFinal.getIdUser().equals(calificacion.getIdUser())) {
                 throw new UserNotAllowedException();
             }
             califFinal.setComentario(calificacion.getComentario());
-            califFinal.setPuntuacion(calificacion.getPuntuacion());         
+            califFinal.setPuntuacion(calificacion.getPuntuacion());
         }
         recetasService.updateReceta(receta);
         return receta;
@@ -103,32 +107,31 @@ public class CalificacionService implements ICalificacionService {
             throw new UsuarioNotFoundException();
         }
 
-        Optional<Receta> receta = recetasService.getRecetaById(idReceta);   
+        Optional<Receta> receta = recetasService.getRecetaById(idReceta);
         if (receta.isEmpty()) {
             throw new RecetaNotFoundException(idReceta);
         }
 
         Receta recetaFinal = receta.get();
         List<Calificacion> calificaciones = recetaFinal.getCalificaciones();
-        List<Calificacion> listaFinal = new ArrayList<>();
 
         if (calificaciones.isEmpty()) {
             throw new CalificacionNotFoundException();
         } else {
-            Optional<Calificacion>califABorrar = findCalificacionById(idCalificacion);
-
+            Optional<Calificacion> califABorrar = findCalificacionById(idCalificacion);
             if (califABorrar.isEmpty()) {
                 throw new CalificacionNotFoundException();
-            } else {          
-                calificaciones.stream()
-                              .filter(calificacion  -> calificacion.getIdCalificacion() != califABorrar.getIdCalificacion());
-                              // seguir el filter
-            }               
+            } else {
+                Calificacion califFinal = califABorrar.get();
 
-            
-            recetaFinal.setCalificaciones(listaFinal);
+                List<Calificacion> listadoFinal = calificaciones.stream()
+                        .filter(calificacion -> !calificacion.getIdCalificacion()
+                        .equals(califFinal.getIdCalificacion()))
+                        .collect(Collectors.toList());
+
+                recetaFinal.setCalificaciones(listadoFinal);
+            }
         }
-
         recetasService.updateReceta(recetaFinal);
         return recetaFinal;
     }
