@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.buffer.recetariobackend.v2.dto.UsuarioDTO;
 import com.buffer.recetariobackend.v2.entity.Calificacion;
 import com.buffer.recetariobackend.v2.entity.Receta;
 import com.buffer.recetariobackend.v2.exception.CalificacionAlreadyExistsException;
@@ -17,8 +16,6 @@ import com.buffer.recetariobackend.v2.exception.RecetaNotFoundException;
 import com.buffer.recetariobackend.v2.exception.UserNotAllowedException;
 import com.buffer.recetariobackend.v2.exception.UsuarioNotFoundException;
 import com.buffer.recetariobackend.v2.repository.ICalificacionRepository;
-
-import ch.qos.logback.core.filter.Filter;
 
 @Service
 public class CalificacionService implements ICalificacionService {
@@ -108,7 +105,7 @@ public class CalificacionService implements ICalificacionService {
         }
 
         Optional<Receta> receta = recetasService.getRecetaById(idReceta);
-        if (receta.isEmpty()) {
+        if (receta.isEmpty() ) {
             throw new RecetaNotFoundException(idReceta);
         }
 
