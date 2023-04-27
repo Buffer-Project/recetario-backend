@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.buffer.recetariobackend.v2.dto.RecetaDTO;
-import com.buffer.recetariobackend.v2.dto.UsuarioDTO;
 import com.buffer.recetariobackend.v2.entity.Calificacion;
 import com.buffer.recetariobackend.v2.entity.Receta;
 import com.buffer.recetariobackend.v2.exception.CalificacionAlreadyExistsException;
@@ -81,7 +80,7 @@ public class RecetaController {
             return ResponseEntity.unprocessableEntity().build();
         } catch (RecetaNotFoundException e) {
             return ResponseEntity.notFound().build();
-        } catch (UsuarioNotFoundException err){
+        } catch (UsuarioNotFoundException err) {
             return ResponseEntity.notFound().build();
         }
 
@@ -99,9 +98,9 @@ public class RecetaController {
             return ResponseEntity.notFound().build();
         } catch (CalificacionNotFoundException er) {
             return ResponseEntity.notFound().build();
-        } catch(UserNotAllowedException err) {
+        } catch (UserNotAllowedException err) {
             return ResponseEntity.unprocessableEntity().build();
-        } catch(UsuarioNotFoundException erro) {
+        } catch (UsuarioNotFoundException erro) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(recetaFinal);
@@ -110,10 +109,11 @@ public class RecetaController {
 
     @DeleteMapping("/{idReceta}/calificaciones")
     public ResponseEntity<Receta> deleteCalificacionByIdCalificacion(@PathVariable String idReceta,
-            @RequestBody String idAutor) {
+            @RequestBody String idCalificacion,
+            @RequestBody String idUser) {
         Receta recetaFinal = null;
         try {
-            recetaFinal = calificacionService.deleteCalificacionByIdCalificacion(idReceta, idAutor);
+            recetaFinal = calificacionService.deleteCalificacionByIdCalificacion(idReceta, idCalificacion, idUser);
         } catch (RecetaNotFoundException e) {
             return ResponseEntity.notFound().build();
         } catch (CalificacionNotFoundException er) {
