@@ -43,7 +43,7 @@ public class CalificacionService implements ICalificacionService {
         Receta receta = recetaConCalificaciones.get();
         List<Calificacion> calificaciones = receta.getCalificaciones();
 
-        if (calificaciones.isEmpty()) {
+        if (calificaciones == null || calificaciones.size() == 0) {
             List<Calificacion> calificacionesAgregadas = new ArrayList<>();
             calificacionesAgregadas.add(calificacion);
             receta.setCalificaciones(calificacionesAgregadas);
@@ -63,7 +63,7 @@ public class CalificacionService implements ICalificacionService {
     }
 
     @Override
-    public Receta modificarCalificacion(String idReceta, Calificacion calificacion) {
+    public Receta modificarCalificacion(String idReceta, String idCalificacion, Calificacion calificacion) {
 
         if (usuarioService.getUserById(calificacion.getIdUser()).isEmpty()) {
             throw new UsuarioNotFoundException();
@@ -75,7 +75,7 @@ public class CalificacionService implements ICalificacionService {
         }
         Receta receta = recetaDraft.get();
 
-        if (receta.getCalificaciones().isEmpty()) {
+        if (receta.getCalificaciones() == null || receta.getCalificaciones().size() == 0) {
             throw new CalificacionNotFoundException();
         } else {
 
@@ -98,21 +98,21 @@ public class CalificacionService implements ICalificacionService {
     }
 
     @Override
-    public Receta deleteCalificacionByIdCalificacion(String idReceta, String idCalificacion, String idUser) {
+    public Receta deleteCalificacionById(String idReceta, String idCalificacion, String idUser) {
 
         if (usuarioService.getUserById(idUser).isEmpty()) {
             throw new UsuarioNotFoundException();
         }
 
         Optional<Receta> receta = recetasService.getRecetaById(idReceta);
-        if (receta.isEmpty() ) {
+        if (receta.isEmpty()) {
             throw new RecetaNotFoundException(idReceta);
         }
 
         Receta recetaFinal = receta.get();
         List<Calificacion> calificaciones = recetaFinal.getCalificaciones();
 
-        if (calificaciones.isEmpty()) {
+        if (calificaciones == null || calificaciones.size() == 0) {
             throw new CalificacionNotFoundException();
         } else {
             Optional<Calificacion> califABorrar = findCalificacionById(idCalificacion);

@@ -87,13 +87,14 @@ public class RecetaController {
         return ResponseEntity.ok(recetaConCalificacionNueva);
     }
 
-    @PatchMapping("/{idReceta}/calificaciones")
+    @PatchMapping("/{idReceta}/calificaciones/{idCalificacion}")
     public ResponseEntity<Receta> modificarCalificacion(@PathVariable String idReceta,
+            @PathVariable String idCalificacion,
             @RequestBody Calificacion calificacion) {
 
         Receta recetaFinal = null;
         try {
-            recetaFinal = calificacionService.modificarCalificacion(idReceta, calificacion);
+            recetaFinal = calificacionService.modificarCalificacion(idReceta, idCalificacion, calificacion);
         } catch (RecetaNotFoundException e) {
             return ResponseEntity.notFound().build();
         } catch (CalificacionNotFoundException er) {
@@ -107,13 +108,13 @@ public class RecetaController {
 
     }
 
-    @DeleteMapping("/{idReceta}/calificaciones")
-    public ResponseEntity<Receta> deleteCalificacionByIdCalificacion(@PathVariable String idReceta,
-            @RequestBody String idCalificacion,
+    @DeleteMapping("/{idReceta}/calificaciones/{idCalificacion}")
+    public ResponseEntity<Receta> deleteCalificacionById(@PathVariable String idReceta,
+            @PathVariable String idCalificacion,
             @RequestBody String idUser) {
         Receta recetaFinal = null;
         try {
-            recetaFinal = calificacionService.deleteCalificacionByIdCalificacion(idReceta, idCalificacion, idUser);
+            recetaFinal = calificacionService.deleteCalificacionById(idReceta, idCalificacion, idUser);
         } catch (RecetaNotFoundException e) {
             return ResponseEntity.notFound().build();
         } catch (CalificacionNotFoundException er) {

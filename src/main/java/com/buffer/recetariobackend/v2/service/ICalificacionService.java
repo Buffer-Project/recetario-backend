@@ -11,8 +11,8 @@ public interface ICalificacionService {
 
     public Receta calificar(String idReceta, Calificacion calificacion);
 
-    public Receta modificarCalificacion(String idReceta, Calificacion calificacion);
+    public Receta modificarCalificacion(String idReceta, String idCalificacion, Calificacion calificacion);
 
-    public Receta deleteCalificacionByIdCalificacion(String idReceta, String idCalificacion, String idUser);
+    public Receta deleteCalificacionById(String idReceta, String idCalificacion, String idUser);
     
 }
