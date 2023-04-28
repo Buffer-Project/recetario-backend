@@ -58,6 +58,7 @@ public class CalificacionService implements ICalificacionService {
                 }
             }
         }
+        calificacionRepository.save(calificacion);
         recetasService.updateReceta(receta);
         return receta;
     }
